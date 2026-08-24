@@ -59,6 +59,7 @@ import { renderWithTooltip } from "@app/components/shared/workbenchBar/workbench
 import { WorkbenchBarActionsProps } from "@app/components/shared/workbenchBar/types";
 import { useIsMobile } from "@app/hooks/useIsMobile";
 import "@app/components/shared/WorkbenchBar.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const SECTION_ORDER: WorkbenchBarSection[] = ["top", "middle", "bottom"];
 
