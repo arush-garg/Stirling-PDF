@@ -1,6 +1,5 @@
 package stirling.software.proprietary.failure;
 
-import static stirling.software.proprietary.failure.FailureActionId.ACKNOWLEDGE;
 import static stirling.software.proprietary.failure.FailureActionId.DISMISS;
 import static stirling.software.proprietary.failure.FailureActionId.VIEW_FILE;
 import static stirling.software.proprietary.failure.FailureActionId.VIEW_IN_PROCESSOR;
@@ -29,10 +28,6 @@ import lombok.Getter;
  * new kind ships as a registry entry plus copy. Each offer also says who it is for, since one
  * incident is read both by whoever hit it and by whoever reviews after them. {@link #UNKNOWN} gives
  * every failed run a record, and kinds get promoted out of it as production shows what occurs.
- *
- * <p>A kind offers an acknowledgement only where there is something to acknowledge <em>doing</em>.
- * With nothing to fix, "seen it" and "clear it" are the same decision, so the row offers only the
- * one that clears it.
  */
 @Getter
 public enum FailureKind {
@@ -54,8 +49,9 @@ public enum FailureKind {
             FailureScope.FILE,
             errorCodes("E074"),
             fallback("This document did not meet the compliance standard the policy checks for."),
-            offer(ACKNOWLEDGE, OWNER),
-            offer(DISMISS, ANYONE_WHO_SEES, "dismissSkipFile")),
+            offer(VIEW_FILE, OWNER),
+            offer(VIEW_IN_PROCESSOR, TEAM_REVIEWER),
+            offer(DISMISS, ANYONE_WHO_SEES)),
 
     UNKNOWN(
             FailureStage.INTERNAL,
